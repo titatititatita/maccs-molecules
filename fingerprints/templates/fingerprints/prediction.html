@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'fingerprints/main.css' %}">
+    <title>Document</title>
+</head>
+<body>
+<div class="wrapper">
+    <header class="head-foot">
+        <div class="first-item">
+            <div class="header-item h-special"><a href="{% url 'fingerprints:index' %}">MACCS</a></div>
+        </div>
+        <div class="end">
+            <div class="header-item end-item"><a href="{% url 'fingerprints:predict' %}">PREDICTION</a></div>
+            <div class="header-item end-item h-special"><a href="{% url 'fingerprints:news' %}">NEWS</a></div>
+        </div>
+    </header>
+
+    <div class="content-wrapper">
+        <div class="mb50">
+
+            <h1>Figerprint generator</h1>
+            <div class="mb10 info">MACCS fingerprint will be generated</div>
+            <form action="{% url 'fingerprints:predict' %}" method="POST">
+                <div class="mb10">
+                    {% csrf_token %}
+                    <textarea name="text" placeholder="SMILES (one per line)" class='smiles-input'></textarea>
+                </div>
+                <button>Generate</button>
+            </form>
+        </div>
+        {% if fingerprints %}
+            <div class="results">
+                <h2 class="mb10">Results: </h2>
+                <div class="fingerprint">
+                    <textarea readonly class="smiles-input">{{ fingerprints }}</textarea>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <footer class="head-foot f-special">
+        <div class="first-item">
+            <div class="footer-item"><a href="{% url 'fingerprints:feedback' %}">Feedback</a></div>
+        </div>
+        <div class="end">
+            <div class="footer-item end-item"><a href="https://sites.google.com/view/bioinformaticsby/main-page">Drug
+                Design Group</a></div>
+            <div class="footer-item end-item"><a href="https://github.com/titatititatita/maccs-molecules">Source
+                code</a></div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
