@@ -1,9 +1,9 @@
-import tensorflow as tf
+# import tensorflow as tf
 import numpy as np
 import os
-from typing import Tuple
-from rdkit import Chem
-from rdkit.Chem import MACCSkeys
+# from typing import Tuple
+# from rdkit import Chem
+# from rdkit.Chem import MACCSkeys
 
 DEFAULT_DECODER_MODEL_PATH = "fingerprints/ml/decoder.h5"
 DEFAULT_REGRESSION_MODEL_PATH = "fingerprints/ml/HIV_keras_energy_18_5.h5"
@@ -33,7 +33,7 @@ class TF_Models:
     @staticmethod
     def _get_models(
         decoder_model_path: str, regression_model_path: str
-    ) -> Tuple[tf.keras.Model, tf.keras.Model]:
+    ): #-> Tuple[tf.keras.Model, tf.keras.Model]:
         """
         Function for loading a keras model from a .h5 file
 
@@ -61,6 +61,8 @@ class TF_Models:
             )
 
     def predict(self, smi):
+        return 100
+
         m = Chem.MolFromSmiles(smi)
         if m is None:
             raise RuntimeError("Invalid smiles string provided")
@@ -87,6 +89,7 @@ class TF_Models:
             Descriptors generated
 
         """
+        return np.array([100])
         z = tf.random.normal([n, LATENT_LAYER_SIZE], mean=0.0, stddev=1.0)
         energy = np.zeros(shape=(n, 1))
         energy.fill(sample_energy)

@@ -1,6 +1,6 @@
 numpy>=1.18.1
 django==3.2.3
-tensorflow-cpu==2.0.0
+# tensorflow-cpu==2.0.0
 django-ckeditor==6.0.0
 pillow
 gunicorn
