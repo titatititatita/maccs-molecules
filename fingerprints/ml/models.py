@@ -47,6 +47,7 @@ class TF_Models:
         -------
             tf.keras model
         """
+        return None, None
         if os.path.exists(decoder_model_path) and os.path.exists(
             regression_model_path
         ):
