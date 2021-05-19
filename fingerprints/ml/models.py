@@ -47,7 +47,6 @@ class TF_Models:
         -------
             tf.keras model
         """
-        return None, None
         if os.path.exists(decoder_model_path) and os.path.exists(
             regression_model_path
         ):
@@ -90,7 +89,6 @@ class TF_Models:
             Descriptors generated
 
         """
-        return np.array([100])
         z = tf.random.normal([n, LATENT_LAYER_SIZE], mean=0.0, stddev=1.0)
         energy = np.zeros(shape=(n, 1))
         energy.fill(sample_energy)
