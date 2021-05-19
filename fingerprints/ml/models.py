@@ -2,8 +2,8 @@
 import numpy as np
 import os
 # from typing import Tuple
-from rdkit import Chem
-from rdkit.Chem import MACCSkeys
+# from rdkit import Chem
+# from rdkit.Chem import MACCSkeys
 
 DEFAULT_DECODER_MODEL_PATH = "fingerprints/ml/decoder.h5"
 DEFAULT_REGRESSION_MODEL_PATH = "fingerprints/ml/HIV_keras_energy_18_5.h5"
@@ -62,7 +62,7 @@ class TF_Models:
             )
 
     def predict(self, smi):
-
+        return 100
         m = Chem.MolFromSmiles(smi)
         if m is None:
             raise RuntimeError("Invalid smiles string provided")

@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="maccs" uuid="4f23df5b-07cc-4da7-8e35-c30791fdd55e">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\geobreze\Desktop\maccs-molecules\maccs\maccs.sqlite3</jdbc-url>
+    </data-source>
   </component>
 </project>

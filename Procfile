@@ -1,2 +1,2 @@
-release: python manage.py makemigrations fingerprints && python manage.py migrate --fake-initial
+release: ./release.sh
 web: gunicorn maccs.wsgi --log-file -
