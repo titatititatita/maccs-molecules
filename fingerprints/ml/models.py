@@ -1,7 +1,7 @@
-# import tensorflow as tf
+import tensorflow as tf
 import numpy as np
 import os
-# from typing import Tuple
+from typing import Tuple
 # from rdkit import Chem
 # from rdkit.Chem import MACCSkeys
 
@@ -33,7 +33,7 @@ class TF_Models:
     @staticmethod
     def _get_models(
         decoder_model_path: str, regression_model_path: str
-    ): #-> Tuple[tf.keras.Model, tf.keras.Model]:
+    ) -> Tuple[tf.keras.Model, tf.keras.Model]:
         """
         Function for loading a keras model from a .h5 file
 
