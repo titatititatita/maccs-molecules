@@ -22,10 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '_l6#(0x^4x(@j%s4wgpzb3&-tvszjq37g*321f(2n8hx)$p&k6'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'maccs.herokuapp.com']
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv("DEBUG", True)
+
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'maccs.herokuapp.com']
 
 
 # Application definition
@@ -78,8 +79,12 @@ WSGI_APPLICATION = 'maccs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'maccs.sqlite3'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("DB_NAME", 'maccs'),
+        'USER': os.getenv("DB_USER", 'postgres'),
+        'PASSWORD': os.getenv("DB_PASSWORD", 'root'),
+        'HOST': os.getenv("DB_HOST", '127.0.0.1'),
+        'PORT': os.getenv("DB_PORT", '5432'),
     }
 }
 
