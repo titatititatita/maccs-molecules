@@ -3,5 +3,5 @@ channels:
   - rdkit
   - defaults
 dependencies:
-  - python-3.6.13
+  - python=3.6.13
   - rdkit
