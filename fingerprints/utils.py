@@ -1,34 +1,26 @@
-from rdkit import Chem
-from rdkit.Chem import MACCSkeys
+import numpy as np
+
+from fingerprints.apps import FingerprintsConfig
 
 
-def make_fingerprints(smiles_string: str) -> str:
-    smiles = smiles_string.split('\n')
-    print(smiles)
-    fingerprint_flag = False
-    result = []
-    for s in smiles:
-        if check_smile(s):
-            fingerprint_flag = True
-            molecule = Chem.MolFromSmiles(s)
-            fingerprint = MACCSkeys._pyGenMACCSKeys(molecule)
-            result.append((s + ": " + key_to_string(fingerprint)))
-    if not fingerprint_flag:
-        return "All smiles were written incorrectly! Check the input."
-    return '\n'.join([line for line in result])
+def prediction(one_smile_string: str) -> float:
+    model = FingerprintsConfig.ml_model
+    return model.predict(one_smile_string)
 
 
-def key_to_string(fingerprint) -> str:
-    fingerprint_tuple = tuple(fingerprint.GetOnBits())
-    result = [0] * 166
-    for bit in fingerprint_tuple:
-        result[bit] = 1
-    result = ''.join([str(bit) for bit in result])
-    return result
+def generating(n: int, energy: float) -> np.array:
+    model = FingerprintsConfig.ml_model
+    return model.generate(n, energy)
 
 
-def check_smile(smile: str) -> bool:
-    molecule = Chem.MolFromSmiles(smile)
-    if molecule is None:
-        return False
-    return True
+def predict_array_energy(smiles_string: str):
+    smiles = set(smiles_string.splitlines())
+    output_energy = {}
+    for one_smile_string in smiles:
+        try:
+            output_energy[one_smile_string] = prediction(one_smile_string)
+        except RuntimeError as e:
+            print(e)
+            output_energy[one_smile_string] = "SMILES was written incorrectly! Check the input."
+    print(output_energy)
+    return output_energy

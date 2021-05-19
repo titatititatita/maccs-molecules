@@ -1,0 +1,22 @@
+<section class="finger-print-gen">
+    <h3 class="section-title">Generate fingerprints with given free binding energy</h3>
+    <span class="finger-print-gen__sub-title">Enter number of fingerprints and desired binding energy</span>
+    <div>
+        <form method="POST" action="{% url 'fingerprints:generate_download' %}" class="form finger-print-gen__generator__area">
+
+            {% csrf_token %}
+
+            <div class="field form__field">
+                <label class="field__label">Number of fingerprints</label>
+                <input name="n-fingerprints" type="text" class="base-input">
+            </div>
+
+            <div class="field form__field">
+                <label class="field__label">Desired binding free energy</label>
+                <input name="free-energy" type="text" class="base-input">
+            </div>
+
+            <button class="button button_submit" type="submit">Generate and save</button>
+        </form>
+    </div>
+</section>

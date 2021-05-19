@@ -1,58 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>MACCS</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'fingerprints/main.css' %}">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'fingerprints/css/app.css' %}"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
 </head>
 <body>
-<div class="wrapper">
-    <header class="head-foot">
-        <div class="first-item">
-            <div class="header-item h-special"><a href="{% url 'fingerprints:index' %}">MACCS</a></div>
-        </div>
-        <div class="end">
-            <div class="header-item end-item"><a href="{% url 'fingerprints:predict' %}">PREDICTION</a></div>
-            <div class="header-item end-item h-special"><a href="{% url 'fingerprints:news' %}">NEWS</a></div>
-        </div>
-    </header>
+{% include "fingerprints/include/header.html" with active="prediction" %}
+<main>
+    <section class="page-banner">Predict</section>
+    {% include "fingerprints/include/predict_form.html" %}
 
-    <div class="content-wrapper">
-        <div class="mb50">
+    {% if fingerprints %}
+    <section class="finger-print-gen__result">
+        <form action="{% url 'fingerprints:download_predict' %}" method="POST">
+            {% csrf_token %}
+            <div class="finger-print-gen__result__content">
 
-            <h1>Figerprint generator</h1>
-            <div class="mb10 info">MACCS fingerprint will be generated</div>
-            <form action="{% url 'fingerprints:predict' %}" method="POST">
-                <div class="mb10">
-                    {% csrf_token %}
-                    <textarea name="text" placeholder="SMILES (one per line)" class='smiles-input'></textarea>
+                {% for smiles, energy in fingerprints.items %}
+
+                <div class="finger-print-gen__result__content__field">
+                    <span class="finger-print-gen__result__content__field__label">SMILES:</span>
+                    <span class="finger-print-gen__result__content__field__value">{{ smiles }}</span>
                 </div>
-                <button>Generate</button>
-            </form>
-        </div>
-        {% if fingerprints %}
-            <div class="results">
-                <h2 class="mb10">Results: </h2>
-                <div class="fingerprint">
-                    <textarea readonly class="smiles-input">{{ fingerprints }}</textarea>
+                <div class="finger-print-gen__result__content__field">
+                    <span class="finger-print-gen__result__content__field__label">Results:</span>
+                    <span class="finger-print-gen__result__content__field__value">{{ energy }}</span>
                 </div>
+
+                {% endfor %}
+
+                <input hidden name="fingerprints" value="{{ fingerprints }}">
+                <button class="button finger-print-gen__result__content__button">
+                    Save results
+                </button>
             </div>
-        {% endif %}
-    </div>
-
-    <footer class="head-foot f-special">
-        <div class="first-item">
-            <div class="footer-item"><a href="{% url 'fingerprints:feedback' %}">Feedback</a></div>
-        </div>
-        <div class="end">
-            <div class="footer-item end-item"><a href="https://sites.google.com/view/bioinformaticsby/main-page">Drug
-                Design Group</a></div>
-            <div class="footer-item end-item"><a href="https://github.com/titatititatita/maccs-molecules">Source
-                code</a></div>
-        </div>
-    </footer>
-</div>
-
+        </form>
+    </section>
+    {% endif %}
+</main>
+{% include "fingerprints/include/footer.html" with active="prediction" %}
+<link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap"
+        rel="stylesheet"
+/>
+<script async src="{% static 'fingerprints/js/all.js' %}"></script>
 </body>
 </html>

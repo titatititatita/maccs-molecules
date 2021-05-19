@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>MACCS</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'fingerprints/main.css' %}">
-    <title>Document</title>
-
+    <link rel="stylesheet" href="{% static 'fingerprints/css/app.css' %}"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
 </head>
 <body>
-    <div class="wrapper">
-        <header class="head-foot">
-            <div class="first-item">
-                <div class="header-item h-special"><a href="{% url 'fingerprints:index' %}">MACCS</a></div>
+{% include "fingerprints/include/header.html" with active="news" %}
+<main>
+    <section class="page-banner">News</section>
+    <section class="news-section">
+        <div class="news-section__news">
+            <div class="news-section__column">
+                {% for entry in page_obj|slice:":3" %}
+                {% include "fingerprints/include/news_preview.html" with news_entry=entry %}
+                {% endfor %}
             </div>
-            <div class="end">
-                <div class="header-item end-item"><a href="{% url 'fingerprints:predict' %}">PREDICTION</a></div>
-                <div class="header-item end-item h-special"><a href="{% url 'fingerprints:news' %}">NEWS</a></div>
+            <div class="news-section__column">
+                {% for entry in page_obj|slice:"3:" %}
+                {% include "fingerprints/include/news_preview.html" with news_entry=entry %}
+                {% endfor %}
             </div>
-        </header>
-
-
-        <footer class="head-foot f-special">
-            <div class="first-item">
-                <div class="footer-item"><a href="{% url 'fingerprints:feedback' %}">Feedback</a></div>
+        </div>
+        <div class="news__pagination">
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="pagination__button pagination__button_left-arrow pagination__button_navigation"></a>
+                <a href="?page=1" class="pagination__button">1</a>
+                {% endif %}
+                <a  class="pagination__button pagination__button_active">{{ page_obj.number }}</a>
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination__button">{{ page_obj.paginator.num_pages }}</a>
+                <a href="?page={{ page_obj.next_page_number }}" class="pagination__button pagination__button_right-arrow pagination__button_navigation"></a>
+                {% endif %}
             </div>
-            <div class="end">
-                <div class="footer-item end-item"><a href="https://sites.google.com/view/bioinformaticsby/main-page">Drug Design Group</a></div>
-                <div class="footer-item end-item"><a href="https://github.com/titatititatita/maccs-molecules">Source code</a></div>
-            </div>
-        </footer>
-    </div>
-
+        </div>
+    </section>
+</main>
+{% include "fingerprints/include/footer.html" with active="news" %}
+<link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap"
+        rel="stylesheet"
+/>
+<script async src="{% static 'fingerprints/js/all.js' %}"></script>
 </body>
 </html>

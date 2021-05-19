@@ -1,0 +1,27 @@
+<footer class="footer">
+    <div class="footer__column footer__info">
+        <span class="footer_logo-text">MACCS</span>
+        <div class="footer_phones">
+            <span class="footer_phones__phone">+375 (29) 666 54 58</span>
+            <span class="footer_phones__phone">+375 (29) 152 51 07</span>
+        </div>
+        <span class="footer__company">Drug Design Group</span>
+    </div>
+    <div class="footer__column footer__nav">
+        <a class="footer__nav__item {% if active == 'index' %} footer__nav__item_active {% endif %}"
+           href="{% url 'fingerprints:index' %}">Home</a>
+        <a class="footer__nav__item {% if active == 'prediction' %} footer__nav__item_active {% endif %}"
+           href="{% url 'fingerprints:predict' %}">Predict</a>
+        <a class="footer__nav__item {% if active == 'generate' %} footer__nav__item_active {% endif %}"
+           href="{% url 'fingerprints:generate' %}">Generate</a>
+        <a class="footer__nav__item {% if active == 'news' %} footer__nav__item_active {% endif %}"
+           href="{% url 'fingerprints:news' %}">News</a>
+        <a class="footer__nav__item {% if active == 'contacts' %} footer__nav__item_active {% endif %}"
+           href="{% url 'fingerprints:contacts' %}">Contacts</a>
+    </div>
+    <div class="footer__column footer__source">
+        <form target="_blank" action="https://github.com/titatititatita/maccs-molecules">
+            <button class="button">Source code</button>
+        </form>
+    </div>
+</footer>

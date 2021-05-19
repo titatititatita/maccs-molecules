@@ -1,47 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>MACCS</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'fingerprints/main.css' %}">
-    <title>Document</title>
-
+    <link rel="stylesheet" href="{% static 'fingerprints/css/app.css' %}"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
 </head>
 <body>
-<div class="wrapper">
-    <header class="head-foot">
-        <div class="first-item">
-            <div class="header-item h-special" ><a href="{% url 'fingerprints:index' %}">MACCS</a></div>
-        </div>
-        <div class="end">
-            <div class="header-item end-item"><a href="{% url 'fingerprints:predict' %}">PREDICTION</a></div>
-            <div class="header-item end-item h-special"><a href="{% url 'fingerprints:news' %}">NEWS</a></div>
-        </div>
-    </header>
-
-    <div class="content-wrapper">
-        <div class="mb50">
-
-            <h1>Generating MACCS fingerprints of molecules</h1>
-            <div class="mb10 info">This site can be used to generate fingerprints of molecules. It is a course project
-                which is mentoring by UIIP.
+{% include "fingerprints/include/header.html" with active="index" %}
+<main>
+    <section class="main-banner">
+        <div class="main-banner__content">
+            <h1 class="main-banner__title">Machine Learning in Drug Discovery</h1>
+            <small class="main-banner__sub-title">
+                We use Machine Learning for Prediction of Binding Free Energy
+            </small>
+            <div class="main-banner__buttons">
+                <form action="{% url 'fingerprints:predict' %}">
+                    <button class="button">Predict</button>
+                </form>
             </div>
-
         </div>
-    </div>
-
-    <footer class="head-foot f-special">
-        <div class="first-item">
-            <div class="footer-item"><a href="{% url 'fingerprints:feedback' %}">Feedback</a></div>
+    </section>
+    <section class="about-project">
+        <div class="about-project__main">
+            <h3 class="section-title">About the project</h3>
+            <div class="about-project__main__desc">
+                <p class="about-project__main__desc__text">
+                    This site can be used to generate fingerprints of molecules. It is
+                    a course progect which is mentoring by UIIP.
+                </p>
+            </div>
+            <div class="about-project__main__box"></div>
         </div>
-        <div class="end">
-            <div class="footer-item end-item"><a href="https://sites.google.com/view/bioinformaticsby/main-page">Drug
-                Design Group</a></div>
-            <div class="footer-item end-item"><a href="https://github.com/titatititatita/maccs-molecules">Source
-                code</a></div>
+        <img
+                class="about_project__image"
+                src="{% static 'fingerprints/images/photoholgic.png' %}"
+        />
+    </section>
+    <section class="news">
+        <div class="news__header">
+            <h3 class="section-title">News</h3>
+            <a class="button_link news__header__learn-more" href="{% url 'fingerprints:news' %}">
+                Learn more
+            </a>
         </div>
-    </footer>
-</div>
+        <div class="news__content">
+            {% for entry in news_entries %}
+            {% include "fingerprints/include/news_preview.html" with news_entry=entry %}
+            {% endfor %}
+        </div>
+    </section>
+    <section class="contact-form">
+        <h3 class="section-title">Contact us</h3>
+        <form method="POST" action="{% url 'fingerprints:contact' %}" class="form contact-form__form">
 
+            {% csrf_token %}
+
+            <div class="form__field">
+                <label class="form__field__label">First name*</label>
+                <input name="first_name" class="form__field__input" type="text"/>
+            </div>
+            <div class="form__field">
+                <label class="form__field__label">Second name</label>
+                <input name="second_name" class="form__field__input" type="text"/>
+            </div>
+            <div class="form__field">
+                <label class="form__field__label">E-mail*</label>
+                <input name="email" class="form__field__input" type="email"/>
+            </div>
+            <div class="form__field">
+                <label class="form__field__label">Message</label>
+                <textarea name="message" class="form__field__textarea"></textarea>
+            </div>
+            <button class="button contact-form__button" type="submit">
+                Send
+            </button>
+        </form>
+    </section>
+</main>
+{% include "fingerprints/include/footer.html" with active="index" %}
+<link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap"
+        rel="stylesheet"
+/>
+<script async src="{% static 'fingerprints/js/all.js' %}"></script>
 </body>
 </html>

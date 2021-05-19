@@ -1,0 +1,55 @@
+<section class="finger-print-gen">
+    <h3 class="section-title">Affine energy prediction for COVID-19 Main Protease</h3>
+    <span class="finger-print-gen__sub-title">Free binding energy will be predicted. Select input method </span>
+    <div class="finger-print-gen__generator">
+        <div class="button-tabs">
+            <a class="button-tab {% if type == 'text' %} button-tab_active {% endif %}"
+               href="{% url 'fingerprints:predict' %}">Input</a>
+            <a class="button-tab {% if type == 'file' %} button-tab_active {% endif %}"
+               href="{% url 'fingerprints:predict' 'file' %}">Upload File</a>
+            <a class="button-tab {% if type == 'draw' %} button-tab_active {% endif %}"
+               href="{% url 'fingerprints:predict' 'draw' %}">Draw Molecule</a>
+        </div>
+        <form {% if type == "file" %} enctype="multipart/form-data" {% endif %} method="POST" action="{% url 'fingerprints:predict' type %}" class="form finger-print-gen__generator__area">
+
+            {% csrf_token %}
+
+            {% if type == 'text' %}
+
+            <div class="field">
+                <label class="field__label">SMILES (one per line) </label>
+                <textarea name="smiles" class="textarea"></textarea>
+            </div>
+
+            {% elif type == 'file' %}
+
+            <div class="field">
+                <label class="field__label">File containing SMILES (one per line)</label>
+                <label id="prediction-upload-file_button" class="upload-input">
+                    <input
+                            name="smiles"
+                            id="prediction-upload-file_input"
+                            type="file"
+                            class="upload-input__file"
+                    />
+                    <span class="upload-input__text">Choose File</span>
+                </label>
+            </div>
+
+            {% elif type == 'draw' %}
+
+            <div class="field">
+                <label class="field__label">Draw a molecule</label>
+                {% include "fingerprints/include/draw_panel.html" %}
+            </div>
+
+            <div class="field form__field">
+                <label class="field__label">SMILES</label>
+                <input name="smiles" id="smiles" type="text" class="base-input">
+            </div>
+            {% endif %}
+
+            <button class="button button_submit" type="submit">Predict</button>
+        </form>
+    </div>
+</section>

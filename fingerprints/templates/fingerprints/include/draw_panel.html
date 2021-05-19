@@ -1,0 +1,10 @@
+{% load static %}
+<script type="text/javascript" language="javascript"
+        src="{% static 'fingerprints/js/jsme/jsme.nocache.js' %}"></script>
+<script>
+function jsmeOnLoad() {
+    jsmeApplet = new JSApplet.JSME("jsme_container", "640px", "480px");
+    jsmeApplet.setAfterStructureModifiedCallback(() => { document.getElementById("smiles").value = jsmeApplet.smiles(); });
+};
+</script>
+<div id="jsme_container"></div>

@@ -1,0 +1,18 @@
+<article class="news-item">
+    <img
+            class="news-item__image"
+            src="{{ news_entry.preview_image.url }}"
+            alt="preview"
+    />
+    <div class="news-item__body">
+        <span class="news-item__title">{{ news_entry.title }}</span>
+        <p class="news-item__desc">
+            {{ news_entry.content|striptags|truncatechars:128 }}
+        </p>
+        <a class="button_link news-item__read-more" href="{% url 'fingerprints:news_details' news_entry.pk %}">Read more</a>
+        <div class="news-item__date">
+            <span class="news-item__date__ddmm">{{ news_entry.created_at|date:"d/m" }}</span>
+            <span class="news-item__date__yyyy">{{ news_entry.created_at|date:"Y" }}</span>
+        </div>
+    </div>
+</article>

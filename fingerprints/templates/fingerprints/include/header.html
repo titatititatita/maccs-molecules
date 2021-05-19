@@ -1,0 +1,10 @@
+<header class="header">
+    <span class="header_logo-text">MACCS</span>
+    <nav class="header_nav">
+        <a class="header_nav__item {% if active == 'index' %} header_nav__item_active {% endif %}" href="{% url 'fingerprints:index' %}">Home</a>
+        <a class="header_nav__item {% if active == 'prediction' %} header_nav__item_active {% endif %}" href="{% url 'fingerprints:predict' %}">Predict</a>
+        <a class="header_nav__item {% if active == 'generate' %} header_nav__item_active {% endif %}" href="{% url 'fingerprints:generate' %}">Generate</a>
+        <a class="header_nav__item {% if active == 'news' %} header_nav__item_active {% endif %}" href="{% url 'fingerprints:news' %}">News</a>
+        <a class="header_nav__item {% if active == 'contacts' %} header_nav__item_active {% endif %}" href="{% url 'fingerprints:contacts' %}">Contacts</a>
+    </nav>
+</header>
