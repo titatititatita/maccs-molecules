@@ -5,3 +5,4 @@ django-ckeditor==6.0.0
 pillow
 gunicorn
 psycopg2
+rdkit-pypi
