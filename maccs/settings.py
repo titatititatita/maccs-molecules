@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +25,7 @@ SECRET_KEY = '_l6#(0x^4x(@j%s4wgpzb3&-tvszjq37g*321f(2n8hx)$p&k6'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_OAUTH2_TOKEN")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DEBUG", True))
@@ -80,15 +82,7 @@ WSGI_APPLICATION = 'maccs.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("DB_NAME", 'maccs'),
-        'USER': os.getenv("DB_USER", 'postgres'),
-        'PASSWORD': os.getenv("DB_PASSWORD", 'root'),
-        'HOST': os.getenv("DB_HOST", '127.0.0.1'),
-        'PORT': os.getenv("DB_PORT", '5432'),
-        'OPTIONS': {'sslmode': 'require'}
-    }
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
 }
 
 
