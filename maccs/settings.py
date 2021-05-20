@@ -22,9 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '_l6#(0x^4x(@j%s4wgpzb3&-tvszjq37g*321f(2n8hx)$p&k6'
 
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_OAUTH2_TOKEN")
+DROPBOX_ROOT_PATH = "/maccs"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", True)
+DEBUG = bool(os.getenv("DEBUG", True))
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'maccs.herokuapp.com']
 
