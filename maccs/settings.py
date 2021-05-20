@@ -24,7 +24,6 @@ SECRET_KEY = '_l6#(0x^4x(@j%s4wgpzb3&-tvszjq37g*321f(2n8hx)$p&k6'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 DROPBOX_OAUTH2_TOKEN = os.getenv("DROPBOX_OAUTH2_TOKEN")
-DROPBOX_ROOT_PATH = "/maccs"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv("DEBUG", True))
