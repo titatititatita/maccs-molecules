@@ -7,3 +7,4 @@ gunicorn
 psycopg2
 rdkit-pypi
 django-storages
+dropbox
