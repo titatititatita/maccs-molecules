@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from django.views.static import serve
 
 from maccs import settings
@@ -27,6 +28,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    url('loaderio-0bb1fe1435c8e832a4a5aa0ef1411b33.txt', TemplateView.as_view(template_name="loaderio-0bb1fe1435c8e832a4a5aa0ef1411b33.txt", content_type="text/plain"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
